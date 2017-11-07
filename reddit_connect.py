@@ -6,7 +6,7 @@ class Reddit(object):
     def __init__(self):
         self.URL = "https://www.reddit.com"
 
-    def build_url(self, args:[], limit)->str:
+    def build_url(self, args, limit):
         """
         Builds the url given the arguments and limit
         :param args: Arguments to build the url with

@@ -73,7 +73,7 @@ def not_found(error):
     return make_response(jsonify({'error': 'Not found, Invalid Parameters or URL'}), 404)
 
 
-def check_valid(args:[])->bool:
+def check_valid(args):
     for arg in args:
         if not valid_args[arg]:
             return False
