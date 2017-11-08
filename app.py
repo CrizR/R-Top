@@ -76,7 +76,17 @@ def not_found(error):
     :param error: The error that caused the abort
     :return: JSON Object
     """
-    return make_response(jsonify({'error': 'Not found, Invalid Parameters or URL'}), 404)
+    return make_response(jsonify({'message': 'Not found, Invalid Parameters or URL'}), 404)
+
+
+@app.errorhandler(403)
+def not_found(error):
+    """
+    If API aborts due to invalid input, return the below response.
+    :param error: The error that caused the abort
+    :return: JSON Object
+    """
+    return make_response(jsonify({'message': 'Forbidden. Private Subreddit'}), 404)
 
 
 def check_valid(args):
@@ -106,11 +116,11 @@ def custom_static_page(subreddit, list_type, limit):
 def static_page():
     if request.method == 'POST':
         result = dict(ImmutableMultiDict(request.form))
-        subreddit = result["subreddit_chose"][0]
-        print(result["subreddit_chose"][0])
+        subreddit = result["subreddit_chose"][0].replace(" ", "")
+        print(subreddit)
         reroute_url = request.url_root + "api/v1.0/r/" + subreddit + "/top/limit=20"
         print(reroute_url)
-        data = connect.get_type_post(subreddit, "top", 20)
+        data = connect.get_type_post(subreddit, "top", 40)
         headers = {'Content-Type': 'text/html'}
         return make_response(render_template('index.html', data=data), 200, headers)
 

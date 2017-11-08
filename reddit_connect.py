@@ -1,5 +1,6 @@
 import requests
 import json
+from flask import abort
 
 class Reddit(object):
 
@@ -33,6 +34,7 @@ class Reddit(object):
         args = [subreddit, list_type]
         response = requests.get(self.build_url(args, limit), data=payload, headers=headers)
         response = json.loads(response.text)
+        print(response)
         return self.simplify_listing(response, subreddit)
 
     def simplify_listing(self, jobject, subrredit):
@@ -52,7 +54,8 @@ class Reddit(object):
         """
         listings = {
             "subreddit": subrredit,
-            "posts":[]
+            "posts":[],
+            "posts_size":0
         }
 
         size = len(jobject["data"]["children"])
@@ -66,7 +69,7 @@ class Reddit(object):
             if "title" in post_object:
                 title = post_object["title"]
             if "url" in post_object:
-                 link = post_object["url"]
+                    link = post_object["url"]
             if "score" in post_object:
                 upvotes = int(post_object["score"])
             if "gilded" in post_object:
@@ -83,7 +86,6 @@ class Reddit(object):
 
             }
             listings["posts"].append(post)
+            listings["posts_size"] += 1
         print(listings)
         return listings
-
-
