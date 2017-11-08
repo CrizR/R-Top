@@ -19,9 +19,10 @@ class Reddit(object):
         print(res)
         return res
 
+    # TODO: TOP Given Period
     def get_type_post(self, subreddit, list_type, limit):
         """
-        Retrieves the top posts, simplified for the Cisco API
+        Retrieves the top posts, simplified for the RTop API
         :param sub_reddit: The sub reddit to retrieve the top posts from
         :param list_type: The type of posts to retrieve (top, controversial.. etc)
         :param limit: The number of top posts to retrieve
@@ -32,9 +33,9 @@ class Reddit(object):
         args = [subreddit, list_type]
         response = requests.get(self.build_url(args, limit), data=payload, headers=headers)
         response = json.loads(response.text)
-        return self.simplify_listing(response)
+        return self.simplify_listing(response, subreddit)
 
-    def simplify_listing(self, jobject):
+    def simplify_listing(self, jobject, subrredit):
         """
         Removes unwanted json data from the JSON retrieved from the Reddit API
         :param jobject: Reddit Data
@@ -50,6 +51,7 @@ class Reddit(object):
         :return:
         """
         listings = {
+            "subreddit": subrredit,
             "posts":[]
         }
 
@@ -81,6 +83,7 @@ class Reddit(object):
 
             }
             listings["posts"].append(post)
+        print(listings)
         return listings
 
 
