@@ -14,8 +14,6 @@
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
     <!-- Bootstrap core CSS -->
     <!--<link href="static/css/bootstrap.min.css" rel="stylesheet">-->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/materialize.min.css') }}">
@@ -24,22 +22,34 @@
     <!--<link href="static/css/mdb.min.css" rel="stylesheet">-->
 
     <!-- Template styles -->
+    <script rel="stylesheet" type="text/css">
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+    </script>
+
 
 </head>
 
-<body style="background:white ">
+<body style="background-color:#1A237E";>
 
 
 <header>
     <div class="navbar-fixed">
         <nav>
-            <div style="border-top: 10px solid #396DC1; border-bottom: 10px solid #396DC1;background: #4588F1" class="nav-wrapper">
-                <a style="display: inline-block; padding-left: 20px; padding-bottom: 20px; font-size: 20px;" href="#!" class="brand-logo">
-                    <p style="margin-top: -10px;">RTop </p></a>
+            <div style="background: #4588F1;" class="nav-wrapper">
 
-                <form action="{{ url_for('static_page') }}" method="POST">
+                <form action="{{ url_for('static_page', type="top") }}" method="POST">
                     <div class="input-field">
                         <input name="subreddit_chose" id="search" type="search" required>
+                        <label class="label-icon" for="search"><i style="font-size: 18px;" class="material-icons">Enter
+                            Subreddit</i></label>
                         <i class="material-icons">close</i>
                     </div>
                 </form>
@@ -53,74 +63,27 @@
 </header>
 
 <main>
+    <div class="container">
+        <div style="text-align: center;color: white; border-bottom: 20px solid #396DC1; background: #4588F1; margin-top: 20%; align-content: center;"
+             class="z-depth-4">
+            <div style="padding: 40px;">
+                <h1>Welcome to RTop</h1>
+                <hr>
+                <p>RTop is a basic subreddit restyler that utilizes data pulled from the RTop API. For more information
+                    go to the github page found below.
+                    To start, type in the name of a subreddit above.</p>
+            </div>
+        </div>
+        <br>
+        <br>
 
-
-    <!--Main layout-->
-{#<div style="margin-top: 5%;text-align: center; align-content: center;" class="container">#}
-{##}
-{##}
-{##}
-{#            {% for i in range (0, data["posts_size"], 1) %}#}
-{#                <div style="text-align: center;"class="col s12 m6">#}
-{#                    <div style="text-align: center;" class="row">#}
-{#                        <div class="card">#}
-{#                            <div style="align-content: center;" class="card-image">#}
-{#                                <img src="{{ data["posts"][i]["link"] }}">#}
-{#                                <span class="card-title">{{ post["title"].title() }}</span>#}
-{#                                <a href = "{{ data["posts"][i]["link"] }}" class="btn-floating halfway-fab waves-effect waves-light red"><i#}
-{#                                        class="material-icons">add</i></a>#}
-{#                            </div>#}
-{#                            <div class="card-content">#}
-{#                                <p>{{ data["posts"][i]["title"].title() }}</p>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            {% endfor %}#}
-{#    </div>#}
-    <div style="margin-top: 5%;text-align: center; align-content: center;" class="container">
-            {% if "error" not in data and data["posts_size"] > 1 %}
-            {% for i in range (1, data["posts_size"], 2) %}
-                <div class="row">
-                    <div class="col s12 m6">
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="{{ data["posts"][i - 1]["link"] }}">
-                                <a href = "{{ data["posts"][i - 1]["link"] }}" class="btn-floating halfway-fab waves-effect waves-light red"><i
-                                        class="material-icons">add</i></a>
-                            </div>
-                            <div style="width: 400px; height: 100px;" class="card-content">
-                                <p>{{ data["posts"][i - 1]["title"].title() }}</p>
-                                <p>{{ data["posts"][i]["upvotes"] }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s12 m6">
-                        <div  class="card">
-                            <div  class="card-image">
-                                <img src="{{ data["posts"][i]["link"] }}">
-                                <a href = "{{ data["posts"][i]["link"] }}" class="btn-floating halfway-fab waves-effect waves-light red"><i
-                                        class="material-icons">add</i></a>
-                            </div>
-                            <div style="width: 400px; height: 100px;"  class="card-content">
-                                <p>{{ data["posts"][i]["title"].title() }}</p>
-                                <p>{{ data["posts"][i]["upvotes"] }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-                {% else %}
-                <h2 style="padding-bottom: 80%">Private/Empty Subreddit</h2>
-            {% endif %}
     </div>
-    <!--/.Main layout-->
 </main>
 
 <!--Footer-->
 
 
-<footer class="page-footer">
+<footer style="margin-top: 400px; position: relative;" class="page-footer">
     <div class="container">
         <div class="row">
             <div class="col l6 s12">
@@ -151,25 +114,6 @@
 <!-- SCRIPTS -->
 
 <!-- JQuery -->
-
-<link type="text/javascript" href="{{ url_for('static',filename='/js/jquery-3.1.1.min.js') }}">
-<!--<script type="text/javascript" src="static/js/jquery-3.1.1.min.js"></script>-->
-
-<!-- Bootstrap dropdown -->
-<link type="text/javascript" href="{{ url_for('static',filename='/js/popper.min.js') }}">
-<!--<script type="text/javascript" src="static/js/popper.min.js"></script>-->
-
-<!-- Bootstrap core JavaScript -->
-<link type="text/javascript" href="{{ url_for('static',filename='/js/bootstrap.min.js') }}">
-<!--<script type="text/javascript" src="static/js/bootstrap.min.js"></script>-->
-
-<!-- MDB core JavaScript -->
-<link type="text/javascript" href="{{ url_for('static',filename='/js/mdb.min.js') }}">
-<!--<script type="text/javascript" src="static/js/mdb.min.js"></script>-->
-
-<script>
-    new WOW().init();
-</script>
 
 </body>
 </html>

@@ -100,29 +100,28 @@ def check_valid(args):
 @app.route("/")
 def inital():
     headers = {'Content-Type': 'text/html'}
-    return make_response(render_template('choose.html'), 200, headers)
+    return make_response(render_template('index.html'), 200, headers)
 
 
-@app.route('/r/<string:subreddit>/<string:list_type>/limit=<int:limit>', methods=['POST'])
-def custom_static_page(subreddit, list_type, limit):
-    data = json.loads(requests.post(request.url_root + "api/v1.0/" + subreddit + "/"
-                                    + str(list_type) + "/" + str(limit)))
-    headers = {'Content-Type': 'text/html'}
-    print("test")
-    return make_response(render_template('index.html', data=data), 200, headers)
-
-
-@app.route('/view', methods=['POST', 'GET'])
-def static_page():
+@app.route('/view/<string:type>', methods=['POST', 'GET'])
+def static_page(type):
+    print(type)
     if request.method == 'POST':
         result = dict(ImmutableMultiDict(request.form))
         subreddit = result["subreddit_chose"][0].replace(" ", "")
         print(subreddit)
-        reroute_url = request.url_root + "api/v1.0/r/" + subreddit + "/top/limit=20"
+        reroute_url = request.url_root + "api/v1.0/r/" + subreddit + "/" + type + "/" + "limit=20"
         print(reroute_url)
-        data = connect.get_type_post(subreddit, "top", 40)
+        data = connect.get_type_post(subreddit, type, 40)
         headers = {'Content-Type': 'text/html'}
-        return make_response(render_template('index.html', data=data), 200, headers)
+        return make_response(render_template('sub_view.html', data=data, list_type=type), 200, headers)
+    else:
+        data = {}
+        headers = {'Content-Type': 'text/html'}
+        return make_response(render_template('sub_view.html', data=data, list_type=type), 200, headers)
+
+
+
 
 
 if __name__ == '__main__':

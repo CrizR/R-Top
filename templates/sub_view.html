@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Reddit Top Posts</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <!--<link href="static/css/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/materialize.min.css') }}">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/mdb.min.css') }}">
+    <!--<link href="static/css/mdb.min.css" rel="stylesheet">-->
+
+    <!-- Template styles -->
+</head>
+
+<body style="background:white ">
+
+
+<header>
+
+
+    <div class="navbar-fixed">
+        <nav>
+            <div style="border-bottom: 10px solid #396DC1;background: #4588F1"
+                 class="nav-wrapper">
+                <a style="display: inline-block; padding-left: 20px; padding-bottom: 20px; font-size: 20px;" href="#!"
+                   class="brand-logo">
+                    <p style="margin-top: -5px; margin-right: 10px;">RTop/r/{{ data["subreddit"] }}</p></a>
+
+                <form action="{{ url_for('static_page', type=list_type) }}" method="POST">
+                    <div class="input-field">
+                        <input name="subreddit_chose" id="search" type="search" required>
+                        <i class="material-icons">close</i>
+                    </div>
+
+                </form>
+
+                <ul class="right hide-on-med-and-down">s
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div style="background-color: #396DC1;" class="nav-extended">
+        <div class="nav-content">
+            <ul class="tabs tabs-transparent">
+                {% if list_type == 'top' %}
+                <li class="tab"><a target="_self" class="active" href="/view/top">Top</a></li>
+                {% else %}
+                <li class="tab"><a target="_self" href="/view/top">Top</a></li>
+            {% endif %}
+                {% if list_type == 'rising' %}
+                <li class="tab"><a target="_self" class="active" href="/view/rising">Rising</a></li>
+                {% else %}
+                <li class="tab"><a target="_self" href="/view/rising">Rising</a></li>
+            {% endif %}
+                {% if list_type == 'new' %}
+                <li class="tab"><a target="_self" class="active" href="/view/new">New</a></li>
+                {% else %}
+                <li class="tab"><a target="_self" href="/view/new">New</a></li>
+            {% endif %}
+                {% if list_type == 'controversial' %}
+                <li class="tab"><a target="_self" class="active" href="/view/controversial">Controversial</a></li>
+                {% else %}
+                <li class="tab"><a target="_self" href="/view/controversial">Controversial</a></li>
+            {% endif %}
+            </ul>
+        </div>
+    </div>
+
+</header>
+
+<main>
+    <div style="margin-top: 5%;text-align: center; align-content: center;" class="container">
+        {% if "posts_size" in data and "error" not in data and data["posts_size"] > 1 %}
+            {% for i in range (1, data["posts_size"], 2) %}
+                <div class="row">
+                    <div class="col s12 m6">
+                        <div style="" class="card">
+                            <div class="card-image">
+                                <img src="{{ data["posts"][i - 1]["link"] }}">
+                                <a href="{{ data["posts"][i - 1]["link"] }}"
+                                   class="btn-floating halfway-fab waves-effect waves-light red"><i
+                                        class="material-icons">add</i></a>
+                            </div>
+                            <div style="width: 400px; height: 120px;" class="card-content">
+                                <p>{{ data["posts"][i - 1]["title"].title() }}</p>
+                                <p>{{ data["posts"][i]["upvotes"] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="{{ data["posts"][i]["link"] }}">
+                                <a href="{{ data["posts"][i]["link"] }}"
+                                   class="btn-floating halfway-fab waves-effect waves-light red"><i
+                                        class="material-icons">add</i></a>
+                            </div>
+                            <div style="width: 400px; height: 120px;" class="card-content">
+                                <p>{{ data["posts"][i]["title"].title() }}</p>
+                                <p>{{ data["posts"][i]["upvotes"] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div style="margin-bottom: 80%;" class="container">
+                <div style="text-align: center;color: white; border-bottom: 20px solid #396DC1; background: #4588F1; margin-top: 20%; align-content: center;"
+                     class="z-depth-4">
+                    <div style="padding: 40px;">
+                        <h3 class="card-image">Private/Empty Subreddit</h3>
+                    </div>
+                </div>
+                <br>
+                <br>
+
+            </div>
+
+        {% endif %}
+    </div>
+</main>
+
+<!--Footer-->
+
+
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">RTop Simplified Subreddits in Style</h5>
+                <p class="grey-text text-lighten-4">Learn more about how it was build on GitHub.
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <ul>
+                    <li>
+                        <a style="margin: 1%" target="_blank" href="https://github.com/CrizR/Reddit_Top_Posts"
+                           class="waves-effect waves-light btn-large social github" rel="nofollow"><i
+                                class="fa fa-github"></i>GitHub</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © 2017 Chris Risley
+        </div>
+    </div>
+</footer>
+
+
+<!--/.Footer-->
+
+<!-- SCRIPTS -->
+
+<!-- JQuery -->
+
+<link type="text/javascript" href="{{ url_for('static',filename='/js/jquery-3.1.1.min.js') }}">
+<!--<script type="text/javascript" src="static/js/jquery-3.1.1.min.js"></script>-->
+
+<!-- Bootstrap dropdown -->
+<link type="text/javascript" href="{{ url_for('static',filename='/js/popper.min.js') }}">
+<!--<script type="text/javascript" src="static/js/popper.min.js"></script>-->
+
+<!-- Bootstrap core JavaScript -->
+<link type="text/javascript" href="{{ url_for('static',filename='/js/bootstrap.min.js') }}">
+<!--<script type="text/javascript" src="static/js/bootstrap.min.js"></script>-->
+
+<!-- MDB core JavaScript -->
+<link type="text/javascript" href="{{ url_for('static',filename='/js/mdb.min.js') }}">
+<!--<script type="text/javascript" src="static/js/mdb.min.js"></script>-->
+
+<script>
+    new WOW().init();
+</script>
+
+</body>
+</html>
