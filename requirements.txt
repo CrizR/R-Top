@@ -1,5 +1,4 @@
 Werkzeug==0.12.2
 Flask==0.12.2
 requests==2.18.3
-flask_testing==0.6.2
 gunicorn==19.7
