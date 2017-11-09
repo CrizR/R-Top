@@ -89,48 +89,59 @@
             {% for i in range (1, data["posts_size"], 2) %}
                 <div class="row">
                     <div class="col s12 m6">
-                        <div style="" class="card">
-                            <div class="card-image">
-                                {% if "gfycat" in data["posts"][i - 1]["link"] or "gif" in data["posts"][i - 1]["link"] %}
-                                <iframe frameborder='0' scrolling='no'  width='100%' height='400' allowfullscreen src="{{ data["posts"][i - 1]["link"] }}"></iframe>
-                                {% else %}
-                                      <img src="{{ data["posts"][i - 1]["link"] }}">
-
-                                {% endif %}
-                              <a href="{{ data["posts"][i - 1]["link"] }}"
-                                       class="btn-floating halfway-fab waves-effect waves-light red"><i
-                                            class="material-icons">add</i></a>
-                            </div>
+                        <div style="border-bottom: 10px solid #396DC1; border-top: 10px solid #396DC1;" class="card">
+                             <a href="{{ data["posts"][i - 1]["link"] }}"
+                                   class="btn-floating halfway-fab waves-effect waves-light red"><i
+                                        class="material-icons">add</i></a>
                             <div style="height: 120px;" class="card-content">
 
                                 <p>{{ data["posts"][i - 1]["title"].title() }}</p>
                                 <p style="float: left"><i
-                                        class="material-icons">arrow_drop_up</i>{{ data["posts"][i - 1]["upvotes"] }}</p>
+                                        class="material-icons">arrow_drop_up</i>{{ data["posts"][i - 1]["upvotes"] }}
+                                </p>
                                 <p style="float: right;">{{ data["posts"][i - 1]["gilded"] }}</p>
+
                             </div>
+                            <div class="card-image">
+                                {% if "gfycat" in data["posts"][i - 1]["link"] or "gif" in data["posts"][i - 1]["link"] %}
+                                    <iframe frameborder='0' scrolling='no' width='100%' height='400' allowfullscreen
+                                            src="{{ data["posts"][i - 1]["link"] }}"></iframe>
+                                {% else %}
+                                    <img src="{{ data["posts"][i - 1]["link"] }}">
+
+                                {% endif %}
+
+                            </div>
+
                         </div>
                     </div>
                     <div class="col s12 m6">
-                        <div class="card">
-                            <div class="card-image">
-                                {% if "gfycat" in data["posts"][i]["link"] or "gif" in data["posts"][i]["link"] %}
-                                <iframe frameborder='0' scrolling='no'  width='100%' height='400' allowfullscreen src="{{ data["posts"][i]["link"] }}"></iframe>
-                                {% else %}
-                                      <img src="{{ data["posts"][i]["link"] }}">
-                                {% endif %}
-                               <a href="{{ data["posts"][i]["link"] }}"
-                                       class="btn-floating halfway-fab waves-effect waves-light red"><i
-                                            class="material-icons">add</i></a>
-                            </div>
+                        <div style="border-top: 10px solid #396DC1; border-bottom: 10px solid #396DC1;" class="card">
+                              <a href="{{ data["posts"][i]["link"] }}"
+                                   class="btn-floating halfway-fab waves-effect waves-light red"><i
+                                        class="material-icons">add</i></a>
+
                             <div style="height: 120px;" class="card-content">
+
                                 <p>{{ data["posts"][i]["title"].title() }}</p>
                                 <p style="float: left"><i
                                         class="material-icons">arrow_drop_up</i>{{ data["posts"][i]["upvotes"] }}</p>
                                 <p style="float: right;">{{ data["posts"][i]["gilded"] }}</p>
+
                             </div>
+                            <div class="card-image">
+                                {% if "gfycat" in data["posts"][i]["link"] or "gif" in data["posts"][i]["link"] %}
+                                    <iframe frameborder='0' scrolling='no' width='100%' height='400' allowfullscreen
+                                            src="{{ data["posts"][i]["link"] }}"></iframe>
+                                {% else %}
+                                    <img src="{{ data["posts"][i]["link"] }}">
+                                {% endif %}
+                            </div>
+
                         </div>
                     </div>
                 </div>
+                <br>
             {% endfor %}
         {% else %}
             <div style="margin-bottom: 80%;" class="container">

@@ -72,7 +72,6 @@ class Reddit(object):
                     link = self.alter_imgur_links(post_object["url"])
                 else:
                     link = post_object["url"]
-                print(link)
             if "score" in post_object:
                 upvotes = int(post_object["score"])
             if "gilded" in post_object:
@@ -95,5 +94,5 @@ class Reddit(object):
 
 
     def alter_imgur_links(self, link):
-        new_link = link[:7] + "i." + link[7:] + ".jpg"
+        new_link = link[:7] + "i." + link[8:] + ".jpg"
         return new_link
