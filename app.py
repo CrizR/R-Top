@@ -112,8 +112,8 @@ def static_page(type):
     print("Listing Type:", type)
     print("Subreddit:", subreddit)
     reroute_url = request.url_root + "api/v1.0/r/" + subreddit + "/" + type + "/" + "limit=20"
-    # data = requests.get(reroute_url) # TODO: ADD WHEN SUBMITTING (CAN'T POST TO API LOCALLY)
-    data = connect.get_type_post(subreddit, type, 20)
+    data = requests.get(reroute_url)
+    # data = connect.get_type_post(subreddit, type, 20) # Used for Local Testing
     headers = {'Content-Type': 'text/html'}
     return make_response(render_template('sub_view.html', subreddit=subreddit, data=data, list_type=type), 200, headers)
 
@@ -126,8 +126,8 @@ def static_page_cont(subreddit, type):
         print("Listing Type:", type)
         print("Subreddit:", new_subreddit)
         reroute_url = request.url_root + "api/v1.0/r/" + new_subreddit + "/" + type + "/" + "limit=20"
-        # data = requests.get(reroute_url) # TODO: ADD WHEN SUBMITTING (CAN'T POST TO API LOCALLY)
-        data = connect.get_type_post(new_subreddit, type, 20)
+        data = requests.get(reroute_url)
+        # data = connect.get_type_post(new_subreddit, type, 20) # Used for Local Testing
         headers = {'Content-Type': 'text/html'}
         return make_response(render_template('sub_view.html', subreddit=new_subreddit, data=data, list_type=type), 200,
                              headers)
