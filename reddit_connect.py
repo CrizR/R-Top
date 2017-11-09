@@ -92,7 +92,7 @@ class Reddit(object):
         print(listings)
         return listings
 
-
     def alter_imgur_links(self, link):
         new_link = link[:7] + "i." + link[8:] + ".jpg"
+        print(new_link)
         return new_link

@@ -57,18 +57,6 @@ def get_type_posts(subreddit, list_type, limit):
     return make_response(jsonify(response), 200)
 
 
-# # TODO: Fix for templates
-# @app.route('/api/v1.0', defaults={'path': ''})
-# @app.route('/<path:path>')
-# def catch_all(path):
-#     """
-#     Catches invalid URLs
-#     :param path:
-#     :return: Nothing (Aborts)
-#     """
-#     abort(404)
-
-
 @app.errorhandler(404)
 def not_found(error):
     """
@@ -90,6 +78,11 @@ def not_found(error):
 
 
 def check_valid(args):
+    """
+    Checks to see if the given arguments are valid
+    :param args: The arguments to check
+    :return: Whether or not they are valid
+    """
     for arg in args:
         if not valid_args[arg]:
             return False
@@ -99,18 +92,28 @@ def check_valid(args):
 # ------------------------------------------------------------------------------------------------------
 @app.route("/")
 def inital():
+    """
+    Initial Template Render: Renders the index.html page.
+    :return: Response
+    """
     headers = {'Content-Type': 'text/html'}
     return make_response(render_template('index.html'), 200, headers)
 
 
 @app.route('/view/<string:type>', methods=['POST'])
 def static_page(type):
+    """
+    Renders the sub_view html page given a type of listing
+    :param type:
+    :return: Response
+    """
     result = dict(ImmutableMultiDict(request.form))
     subreddit = result["subreddit_chose"][0].replace(" ", "")
     print("Listing Type:", type)
     print("Subreddit:", subreddit)
     reroute_url = request.url_root + "api/v1.0/r/" + subreddit + "/" + type + "/" + "limit=20"
-    data = connect.get_type_post(subreddit, type, 20)
+    data = requests.post(reroute_url)
+    # data = connect.get_type_post(subreddit, type, 20)
     headers = {'Content-Type': 'text/html'}
     return make_response(render_template('sub_view.html', subreddit = subreddit, data=data, list_type=type), 200, headers)
 
@@ -118,13 +121,13 @@ def static_page(type):
 @app.route('/view/r/<string:subreddit>/<string:type>', methods=['POST', 'GET'])
 def static_page_cont(subreddit, type):
     if request.method == 'POST':
-        print(subreddit)
         result = dict(ImmutableMultiDict(request.form))
         new_subreddit = result["subreddit_chose"][0].replace(" ", "")
         print("Listing Type:", type)
         print("Subreddit:", new_subreddit)
         reroute_url = request.url_root + "api/v1.0/r/" + new_subreddit + "/" + type + "/" + "limit=20"
-        data = connect.get_type_post(new_subreddit, type, 20)
+        data = requests.post(reroute_url)
+        # data = connect.get_type_post(new_subreddit, type, 20)
         headers = {'Content-Type': 'text/html'}
         return make_response(render_template('sub_view.html', subreddit=new_subreddit, data=data, list_type=type), 200, headers)
     else:

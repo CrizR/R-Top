@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-
+    <link rel='shortcut icon' type='image/x-icon' href="{{ url_for('static',filename='img/reddit.png') }}" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -20,19 +20,6 @@
     <!-- Material Design Bootstrap -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/mdb.min.css') }}">
     <!--<link href="static/css/mdb.min.css" rel="stylesheet">-->
-
-    <!-- Template styles -->
-    <script rel="stylesheet" type="text/css">
-        body {
-            display: flex;
-            min-height: 100vh;
-            flex-direction: column;
-        }
-
-        main {
-            flex: 1 0 auto;
-        }
-    </script>
 
 
 </head>
@@ -68,8 +55,8 @@
             <div style="padding: 40px;">
                 <h1>Welcome to RTop</h1>
                 <hr>
-                <p>RTop is a basic subreddit restyler that utilizes data pulled from the RTop API. For more information
-                    go to the github page found below.
+                <p>RTop is a basic subreddit restyler that utilizes data pulled from the RTop API to visualize subreddit content. For more information
+                    go to the GitHub page found below.
                     To start, type in the name of a subreddit above.</p>
             </div>
         </div>
@@ -87,7 +74,7 @@
         <div class="row">
             <div class="col l6 s12">
                 <h5 class="white-text">RTop: Simplified Subreddits in Style</h5>
-                <p class="grey-text text-lighten-4">Learn more about how it was build on GitHub.
+                <p class="grey-text text-lighten-4">Learn more about how it was built on GitHub.
             </div>
             <div class="col l4 offset-l2 s12">
                 <ul>
