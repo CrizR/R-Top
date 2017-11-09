@@ -103,23 +103,34 @@ def inital():
     return make_response(render_template('index.html'), 200, headers)
 
 
-@app.route('/view/<string:type>', methods=['POST', 'GET'])
+@app.route('/view/<string:type>', methods=['POST'])
 def static_page(type):
-    print(type)
-    if request.method == 'POST':
-        result = dict(ImmutableMultiDict(request.form))
-        subreddit = result["subreddit_chose"][0].replace(" ", "")
-        print(subreddit)
-        reroute_url = request.url_root + "api/v1.0/r/" + subreddit + "/" + type + "/" + "limit=20"
-        print(reroute_url)
-        data = connect.get_type_post(subreddit, type, 40)
-        headers = {'Content-Type': 'text/html'}
-        return make_response(render_template('sub_view.html', data=data, list_type=type), 200, headers)
-    else:
-        data = {}
-        headers = {'Content-Type': 'text/html'}
-        return make_response(render_template('sub_view.html', data=data, list_type=type), 200, headers)
+    result = dict(ImmutableMultiDict(request.form))
+    subreddit = result["subreddit_chose"][0].replace(" ", "")
+    print("Listing Type:", type)
+    print("Subreddit:", subreddit)
+    reroute_url = request.url_root + "api/v1.0/r/" + subreddit + "/" + type + "/" + "limit=20"
+    data = connect.get_type_post(subreddit, type, 20)
+    headers = {'Content-Type': 'text/html'}
+    return make_response(render_template('sub_view.html', subreddit = subreddit, data=data, list_type=type), 200, headers)
 
+
+@app.route('/view/r/<string:subreddit>/<string:type>', methods=['POST', 'GET'])
+def static_page_cont(subreddit, type):
+    if request.method == 'POST':
+        print(subreddit)
+        result = dict(ImmutableMultiDict(request.form))
+        new_subreddit = result["subreddit_chose"][0].replace(" ", "")
+        print("Listing Type:", type)
+        print("Subreddit:", new_subreddit)
+        reroute_url = request.url_root + "api/v1.0/r/" + new_subreddit + "/" + type + "/" + "limit=20"
+        data = connect.get_type_post(new_subreddit, type, 20)
+        headers = {'Content-Type': 'text/html'}
+        return make_response(render_template('sub_view.html', subreddit=new_subreddit, data=data, list_type=type), 200, headers)
+    else:
+        data = connect.get_type_post(subreddit, type, 20)
+        headers = {'Content-Type': 'text/html'}
+        return make_response(render_template('sub_view.html', subreddit=subreddit, data=data, list_type=type), 200, headers)
 
 
 

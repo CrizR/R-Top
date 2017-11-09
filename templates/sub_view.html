@@ -30,22 +30,18 @@
 
 
 <header>
-
-
     <div class="navbar-fixed">
         <nav>
             <div style="border-bottom: 10px solid #396DC1;background: #4588F1"
                  class="nav-wrapper">
                 <a style="display: inline-block; padding-left: 20px; padding-bottom: 20px; font-size: 20px;" href="#!"
                    class="brand-logo">
-                    <p style="margin-top: -5px; margin-right: 10px;">RTop/r/{{ data["subreddit"] }}</p></a>
-
-                <form action="{{ url_for('static_page', type=list_type) }}" method="POST">
+                    <p style="margin-top: -5px; margin-right: 10px;">RTop/r/{{ subreddit }}</p></a>
+                <form action="{{ url_for('static_page_cont', subreddit=subreddit, type=list_type) }}" method="POST">
                     <div class="input-field">
                         <input name="subreddit_chose" id="search" type="search" required>
                         <i class="material-icons">close</i>
                     </div>
-
                 </form>
 
                 <ul class="right hide-on-med-and-down">s
@@ -57,25 +53,30 @@
         <div class="nav-content">
             <ul class="tabs tabs-transparent">
                 {% if list_type == 'top' %}
-                <li class="tab"><a target="_self" style="background:  #4588F1" class="active" href="/view/top">Top</a></li>
+                    <li class="tab"><a target="_self" style="background:  #4588F1" class="active"
+                                       href={{ "/view/r/" + subreddit + "/top" }}>Top</a></li>
                 {% else %}
-                <li class="tab"><a target="_self" href="/view/top">Top</a></li>
-            {% endif %}
+                    <li class="tab"><a target="_self" href={{ "/view/r/" + subreddit + "/top" }}>Top</a></li>
+                {% endif %}
                 {% if list_type == 'rising' %}
-                <li class="tab"><a target="_self" style="background:  #4588F1" class="active" href="/view/rising">Rising</a></li>
+                    <li class="tab"><a target="_self" style="background:  #4588F1" class="active"
+                                       href={{ "/view/r/" + subreddit + "/rising" }}>Rising</a></li>
                 {% else %}
-                <li class="tab"><a target="_self" href="/view/rising">Rising</a></li>
-            {% endif %}
+                    <li class="tab"><a target="_self" href={{ "/view/r/" + subreddit + "/rising" }}>Rising</a></li>
+                {% endif %}
                 {% if list_type == 'new' %}
-                <li class="tab"><a target="_self" style="background:  #4588F1" class="active" href="/view/new">New</a></li>
+                    <li class="tab"><a target="_self" style="background:  #4588F1" class="active"
+                                       href={{ "/view/r/" + subreddit + "/new" }}>New</a></li>
                 {% else %}
-                <li class="tab"><a target="_self" href="/view/new">New</a></li>
-            {% endif %}
+                    <li class="tab"><a target="_self" href={{ "/view/r/" + subreddit + "/new" }}>New</a></li>
+                {% endif %}
                 {% if list_type == 'controversial' %}
-                <li class="tab"><a target="_self" style="background:  #4588F1" class="active" href="/view/controversial">Controversial</a></li>
+                    <li class="tab"><a target="_self" style="background:  #4588F1" class="active"
+                                       href={{ "/view/r/" + subreddit + "/controversial" }}>Controversial</a></li>
                 {% else %}
-                <li class="tab"><a target="_self" href="/view/controversial">Controversial</a></li>
-            {% endif %}
+                    <li class="tab"><a target="_self"
+                                       href={{ "/view/r/" + subreddit + "/controversial" }}>Controversial</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
@@ -90,28 +91,42 @@
                     <div class="col s12 m6">
                         <div style="" class="card">
                             <div class="card-image">
-                                <img src="{{ data["posts"][i - 1]["link"] }}">
-                                <a href="{{ data["posts"][i - 1]["link"] }}"
-                                   class="btn-floating halfway-fab waves-effect waves-light red"><i
-                                        class="material-icons">add</i></a>
+                                {% if "gfycat" in data["posts"][i - 1]["link"] or "gif" in data["posts"][i - 1]["link"] %}
+                                <iframe frameborder='0' scrolling='no'  width='100%' height='400' allowfullscreen src="{{ data["posts"][i - 1]["link"] }}"></iframe>
+                                {% else %}
+                                      <img src="{{ data["posts"][i - 1]["link"] }}">
+
+                                {% endif %}
+                              <a href="{{ data["posts"][i - 1]["link"] }}"
+                                       class="btn-floating halfway-fab waves-effect waves-light red"><i
+                                            class="material-icons">add</i></a>
                             </div>
-                            <div style="width: 400px; height: 120px;" class="card-content">
+                            <div style="height: 120px;" class="card-content">
+
                                 <p>{{ data["posts"][i - 1]["title"].title() }}</p>
-                                <p>{{ data["posts"][i]["upvotes"] }}</p>
+                                <p style="float: left"><i
+                                        class="material-icons">arrow_drop_up</i>{{ data["posts"][i - 1]["upvotes"] }}</p>
+                                <p style="float: right;">{{ data["posts"][i - 1]["gilded"] }}</p>
                             </div>
                         </div>
                     </div>
                     <div class="col s12 m6">
                         <div class="card">
                             <div class="card-image">
-                                <img src="{{ data["posts"][i]["link"] }}">
-                                <a href="{{ data["posts"][i]["link"] }}"
-                                   class="btn-floating halfway-fab waves-effect waves-light red"><i
-                                        class="material-icons">add</i></a>
+                                {% if "gfycat" in data["posts"][i]["link"] or "gif" in data["posts"][i]["link"] %}
+                                <iframe frameborder='0' scrolling='no'  width='100%' height='400' allowfullscreen src="{{ data["posts"][i]["link"] }}"></iframe>
+                                {% else %}
+                                      <img src="{{ data["posts"][i]["link"] }}">
+                                {% endif %}
+                               <a href="{{ data["posts"][i]["link"] }}"
+                                       class="btn-floating halfway-fab waves-effect waves-light red"><i
+                                            class="material-icons">add</i></a>
                             </div>
-                            <div style="width: 400px; height: 120px;" class="card-content">
+                            <div style="height: 120px;" class="card-content">
                                 <p>{{ data["posts"][i]["title"].title() }}</p>
-                                <p>{{ data["posts"][i]["upvotes"] }}</p>
+                                <p style="float: left"><i
+                                        class="material-icons">arrow_drop_up</i>{{ data["posts"][i]["upvotes"] }}</p>
+                                <p style="float: right;">{{ data["posts"][i]["gilded"] }}</p>
                             </div>
                         </div>
                     </div>
@@ -122,7 +137,7 @@
                 <div style="text-align: center;color: white; border-bottom: 20px solid #396DC1; background: #4588F1; margin-top: 20%; align-content: center;"
                      class="z-depth-4">
                     <div style="padding: 40px;">
-                        <h3 class="card-image">Private/Empty Subreddit</h3>
+                        <h3 class="card-image">Private/Empty</h3>
                     </div>
                 </div>
                 <br>
@@ -135,13 +150,11 @@
 </main>
 
 <!--Footer-->
-
-
 <footer class="page-footer">
     <div class="container">
         <div class="row">
             <div class="col l6 s12">
-                <h5 class="white-text">RTop Simplified Subreddits in Style</h5>
+                <h5 class="white-text">RTop: Simplified Subreddits in Style</h5>
                 <p class="grey-text text-lighten-4">Learn more about how it was build on GitHub.
             </div>
             <div class="col l4 offset-l2 s12">
@@ -161,13 +174,6 @@
         </div>
     </div>
 </footer>
-
-
-<!--/.Footer-->
-
-<!-- SCRIPTS -->
-
-<!-- JQuery -->
 
 <link type="text/javascript" href="{{ url_for('static',filename='/js/jquery-3.1.1.min.js') }}">
 <!--<script type="text/javascript" src="static/js/jquery-3.1.1.min.js"></script>-->

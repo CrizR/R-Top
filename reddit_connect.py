@@ -34,7 +34,6 @@ class Reddit(object):
         args = [subreddit, list_type]
         response = requests.get(self.build_url(args, limit), data=payload, headers=headers)
         response = json.loads(response.text)
-        print(response)
         return self.simplify_listing(response, subreddit)
 
     def simplify_listing(self, jobject, subrredit):
@@ -69,7 +68,11 @@ class Reddit(object):
             if "title" in post_object:
                 title = post_object["title"]
             if "url" in post_object:
+                if "imgur" in post_object["url"] and "i.imgur" not in post_object["url"]:
+                    link = self.alter_imgur_links(post_object["url"])
+                else:
                     link = post_object["url"]
+                print(link)
             if "score" in post_object:
                 upvotes = int(post_object["score"])
             if "gilded" in post_object:
@@ -89,3 +92,8 @@ class Reddit(object):
             listings["posts_size"] += 1
         print(listings)
         return listings
+
+
+    def alter_imgur_links(self, link):
+        new_link = link[:7] + "i." + link[7:] + ".jpg"
+        return new_link
