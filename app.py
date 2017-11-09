@@ -8,14 +8,14 @@ from werkzeug.datastructures import ImmutableMultiDict
 app = Flask(__name__)
 connect = Reddit()
 
+"""
+The Valid Arguments for a List Type
+"""
 valid_args = {
     "top": True,
     "controversial": True,
-    "sort": True,
-    "random": True,
     "rising": True,
     "new": True,
-    "hot": True,
 }
 
 
@@ -27,7 +27,7 @@ def welcome():
     :return: a JSON Welcome
     """
     welcome_msg = {
-        "message": "Welcome to Chris Risley's RESTful Reddit API",
+        "message": "Welcome to the RTop API",
         "build": "Python Flask"
     }
     return make_response(jsonify(welcome_msg), 200)
@@ -43,7 +43,7 @@ def get_type_posts(subreddit, list_type, limit):
     :param limit: The max amount of posts to show (could be less, depends on the subreddit)
     :return: JSON Object
     """
-    if not check_valid([list_type]) or int(limit) > 100 or int(limit) < 20:
+    if not check_valid([list_type]) or int(limit) > 100 or int(limit) < 0:
         abort(404)
     """
     :param subreddit: The subreddit to retrieve the top posts from
@@ -104,15 +104,15 @@ def inital():
 def static_page(type):
     """
     Renders the sub_view html page given a type of listing
-    :param type:
+    :param type: The listing type to display
     :return: Response
     """
     result = dict(ImmutableMultiDict(request.form))
     new_subreddit = result["subreddit_chose"][0].replace(" ", "")
     print("Listing Type:", type)
     print("Subreddit:", new_subreddit)
-    reroute_url = request.url_root + "api/v1.0/r/" + new_subreddit + "/" + type + "/" + "limit=20"
-    data = requests.post(reroute_url)
+    reroute_url = request.url_root + "api/v1.0/r/" + new_subreddit + "/" + type + "/" + "limit=40"
+    data = json.loads(requests.post(reroute_url))
     # data = connect.get_type_post(new_subreddit, type, 40) # Used for Local Testing
     headers = {'Content-Type': 'text/html'}
     return make_response(render_template('sub_view.html', subreddit=new_subreddit, data=data, list_type=type), 200, headers)
@@ -120,20 +120,26 @@ def static_page(type):
 
 @app.route('/view/r/<string:subreddit>/<string:type>', methods=['POST', 'GET'])
 def static_page_cont(subreddit, type):
+    """
+    Renders the static page given a subreddit and a type
+    :param subreddit: The subreddit whose posts you want to render
+    :param type: The type of listing (top, new, controversial, rising)
+    :return: Response
+    """
     if request.method == 'POST':
         result = dict(ImmutableMultiDict(request.form))
         new_subreddit = result["subreddit_chose"][0].replace(" ", "")
         print("Listing Type:", type)
         print("Subreddit:", new_subreddit)
-        reroute_url = request.url_root + "api/v1.0/r/" + new_subreddit + "/" + type + "/" + "limit=20"
-        data = requests.post(reroute_url)
+        reroute_url = request.url_root + "api/v1.0/r/" + new_subreddit + "/" + type + "/" + "limit=40"
+        data = json.loads(requests.post(reroute_url))
         # data = connect.get_type_post(new_subreddit, type, 40) # Used for Local Testing
         headers = {'Content-Type': 'text/html'}
         return make_response(render_template('sub_view.html', subreddit=new_subreddit, data=data, list_type=type), 200,
                              headers)
     else:
-        reroute_url = request.url_root + "api/v1.0/r/" + subreddit + "/" + type + "/" + "limit=20"
-        data = requests.post(reroute_url)
+        reroute_url = request.url_root + "api/v1.0/r/" + subreddit + "/" + type + "/" + "limit=40"
+        data = json.loads(requests.post(reroute_url))
         # data = connect.get_type_post(subreddit, type, 40) # Used for Local Testing
         headers = {'Content-Type': 'text/html'}
         return make_response(render_template('sub_view.html', subreddit=subreddit, data=data, list_type=type), 200,
