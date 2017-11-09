@@ -111,9 +111,9 @@ def static_page(type):
     subreddit = result["subreddit_chose"][0].replace(" ", "")
     print("Listing Type:", type)
     print("Subreddit:", subreddit)
-    reroute_url = request.url_root + "api/v1.0/r/" + subreddit + "/" + type + "/" + "limit=20"
-    data = requests.post(reroute_url)
-    # data = connect.get_type_post(subreddit, type, 20) # Used for Local Testing
+    # reroute_url = request.url_root + "api/v1.0/r/" + subreddit + "/" + type + "/" + "limit=20"
+    # data = requests.post(reroute_url)
+    data = connect.get_type_post(subreddit, type, 40) # Used for Local Testing
     headers = {'Content-Type': 'text/html'}
     return make_response(render_template('sub_view.html', subreddit=subreddit, data=data, list_type=type), 200, headers)
 
@@ -125,14 +125,16 @@ def static_page_cont(subreddit, type):
         new_subreddit = result["subreddit_chose"][0].replace(" ", "")
         print("Listing Type:", type)
         print("Subreddit:", new_subreddit)
-        reroute_url = request.url_root + "api/v1.0/r/" + new_subreddit + "/" + type + "/" + "limit=20"
-        data = requests.post(reroute_url)
-        # data = connect.get_type_post(new_subreddit, type, 20) # Used for Local Testing
+        # reroute_url = request.url_root + "api/v1.0/r/" + new_subreddit + "/" + type + "/" + "limit=20"
+        # data = requests.post(reroute_url)
+        data = connect.get_type_post(new_subreddit, type, 40) # Used for Local Testing
         headers = {'Content-Type': 'text/html'}
         return make_response(render_template('sub_view.html', subreddit=new_subreddit, data=data, list_type=type), 200,
                              headers)
     else:
-        data = connect.get_type_post(subreddit, type, 20)
+        # reroute_url = request.url_root + "api/v1.0/r/" + subreddit + "/" + type + "/" + "limit=20"
+        # data = requests.post(reroute_url)
+        data = connect.get_type_post(subreddit, type, 40) # Used for Local Testing
         headers = {'Content-Type': 'text/html'}
         return make_response(render_template('sub_view.html', subreddit=subreddit, data=data, list_type=type), 200,
                              headers)
