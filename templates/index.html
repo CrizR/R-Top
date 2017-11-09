@@ -66,7 +66,7 @@
                 <hr>
                 <p>RTop is a basic subreddit restyler that utilizes data pulled from the RTop API to visualize subreddit
                     content. For more information
-                    go to the GitHub page found below.
+                    go to the GitHub page or tabs found below.
                     To start, type in the name of a subreddit above.</p>
             </div>
         </div>
@@ -77,16 +77,72 @@
         <ul style="align-content: center;" class="collapsible popout" data-collapsible="accordion">
             <li>
                 <div style="border-top: 5px solid #2DA697;" class="collapsible-header">
-                    <i class="material-icons">filter_drama</i>First Step</div>
-                <div style="background: #4588F1" class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                    <i class="material-icons">code</i>Developing the API
+                </div>
+                <div style="text-align: left;     background: white" class="collapsible-body"><p>
+                    Using the Python Flask Framework I wrote a basic Wrapper API around the Reddit API, that pulled information
+                    from Reddit's Database, simplified it, and then returned a JSON Object with the relevant subreddit information.
+                    To communicate with Reddit's API I utilized the Requests library to simplify the retrieval of information.
+                    Previous to this project, I had no prior experience in developing an API, so I had to do some research as to
+                    what framework to use. I chose Flask as opposed to Django because I believe that its implementation allows
+                    for an easier and more dynamic development process. In comparison to some of the well known Javascript frameworks
+                    like node, angular, and express, I decided to stick to a Python based framework as I've been working on improving
+                    my Python skills for a couple months now. On a functional level, it seems as though using node and angular to build
+                    the API would have allowed for a process that was equally as straight forward.
+                    <br>
+                    <a style="padding: 10px;" href="http://flask.pocoo.org/">Python Flask</a>
+                </p></div>
             </li>
             <li>
-                <div style="border-top: 5px solid #4588F1;" class="collapsible-header"><i class="material-icons">place</i>Second Step</div>
-                <div style="background: #4588F1" class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                <div style="border-top: 5px solid #4588F1;" class="collapsible-header"><i
+                        class="material-icons">fullscreen</i>Front End
+                </div>
+                <div  style="text-align: left; background: white" class="collapsible-body"><p>
+                    In developing the front end, I was initially looking for a css framework that was clean, simple,
+                    and easy to work with. No need to reinvent the wheel. I have had some prior experience using Bootstrap,
+                    so I decided to try something new and utilize the tools offered by Materialize. Using Materialize's CSS and JS functions, I built the website you see here. To bridge the gap between the back end and the front
+                    end I utilized Python Flask's template functionality to render the HTML pages. To then parse through the data
+                    passed in to the HTML pages, I utilized Jinja2 to dynamically alter certain div attributes, style, and more.
+                    <br>
+                    <a style="padding: 10px;" href="http://flask.pocoo.org/">Python Flask</a>
+                    <a style="padding: 10px;" href="http://materializecss.com/">Materialize</a>
+                    <a style="padding: 10px;" href="http://jinja.pocoo.org/docs/2.10/">Jinja2</a>
+                </p></div>
             </li>
             <li>
-                <div style="border-top: 5px solid #4588F1; border-bottom: 5px solid #2DA697;" class="collapsible-header"><i class="material-icons">whatshot</i>Third Step</div>
-                <div style="background: #4588F1" class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                <div style="border-top: 5px solid #4588F1;"
+                     class="collapsible-header"><i class="material-icons">cloud</i>Deployment
+                </div>
+                <div  style="text-align: left; background: white" class="collapsible-body"><p>
+                    To deploy the web app, I had to choose between Heroku and AWS Elastic Beanstalk. I've had some
+                    prior experience in using AWS (not EB though), so I decided to use Heroku to learn something new.
+                    Getting the application ready for deployment required that I add a requirements.txt file, a runtime.txt
+                    file, and a Procfile. In creating the requirements.txt file I decided to install pipreqs which automatically
+                    modifies/creates the file with the relevant dependencies. For the Procfile, I utilized Gunicorn to
+                    communicate to Heroku what commands to run upon deployment. I then initialized the Heroku project within
+                    my application's directory via command line and then pushed to Heroku's version control system.
+                    <br>
+                    <a style="padding: 10px;" href="https://dashboard.heroku.com/">Heroku</a>
+                    <a style="padding: 10px;" href="http://gunicorn.org/">Gunicorn</a>
+                    <a style="padding: 10px;" href="https://github.com/bndr/pipreqs">Pipreqs</a>
+                </p></div>
+            </li>
+               <li>
+                <div style="border-top: 5px solid #4588F1; border-bottom: 5px solid #2DA697;"
+                     class="collapsible-header"><i class="material-icons">error</i>Known Bugs/Issues Encountered
+                </div>
+                <div  style="text-align: left; background: white" class="collapsible-body"><p>
+                    Throughout the process, I spent most of my time addressing 3rd party related issues. For example,
+                    when initially testing out the web app, Gyfcat gifs wouldn't load, Reddit embedded videos wouldn't load, and
+                    imgur images would only occasionally show up. So far, I've managed to fix the Gyfcat loading issue by
+                    identifying when a url is from gyfcat and then using an Iframe tag instead of img tag. I've attempted to fix
+                    imgur's loading issues by altering the imgur url from https://imgur.com/#### to https://i.imgur.com/####.jpg or .gif
+                    however that still hasn't solved the issue. Other than front end issues, for a while I was stuck trying to
+                    dynamically switch between top, controversial, rising, and new posts and considered creating four different
+                    html pages for each, but then eventually fully utilized python flask's functionality to pass in listing types
+                    and subreddit names upon form resubmission and anchor tags execution.
+                    <br>
+                </p></div>
             </li>
         </ul>
     </article>
