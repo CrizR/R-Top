@@ -58,7 +58,7 @@ def get_type_posts(subreddit, list_type, limit):
 
 
 @app.errorhandler(404)
-def not_found(error):
+def not_found_404(error):
     """
     If API aborts due to invalid input, return the below response.
     :param error: The error that caused the abort
@@ -68,13 +68,23 @@ def not_found(error):
 
 
 @app.errorhandler(403)
-def not_found(error):
+def not_found_403(error):
     """
-    If API aborts due to invalid input, return the below response.
+    If API aborts due to a private subreddit or empty one return the below response.
     :param error: The error that caused the abort
     :return: JSON Object
     """
     return make_response(jsonify({'message': 'Forbidden. Private Subreddit'}), 404)
+
+
+@app.errorhandler(500)
+def not_found_500(error):
+    """
+    If there is some internal error
+    :return: JSON Object
+    """
+    return make_response(jsonify({'message': 'Something went really wrong: Internal Server Error'}), 404)
+
 
 
 def check_valid(args):
