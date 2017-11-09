@@ -44,7 +44,7 @@ def get_type_posts(subreddit, list_type, limit):
     :return: JSON Object
     """
     if not check_valid([list_type]) or int(limit) > 100 or int(limit) < 0:
-        abort(404)
+        abort(401)
     """
     :param subreddit: The subreddit to retrieve the top posts from
     :param list_type: The type of posts to retrieve
@@ -53,18 +53,18 @@ def get_type_posts(subreddit, list_type, limit):
     """
     response = connect.get_type_post(subreddit, list_type, limit)
     if "posts" in response and not response["posts"]:
-        abort(404)
+        abort(401)
     return make_response(jsonify(response), 200)
 
 
-@app.errorhandler(404)
+@app.errorhandler(401)
 def not_found_404(error):
     """
     If API aborts due to invalid input, return the below response.
     :param error: The error that caused the abort
     :return: JSON Object
     """
-    return make_response(jsonify({'message': 'Not found, Invalid Parameters or URL'}), 404)
+    return make_response(jsonify({'message': 'Not found, Invalid Parameters or URL'}), 401)
 
 
 @app.errorhandler(403)
@@ -74,7 +74,7 @@ def not_found_403(error):
     :param error: The error that caused the abort
     :return: JSON Object
     """
-    return make_response(jsonify({'message': 'Forbidden. Private Subreddit'}), 404)
+    return make_response(jsonify({'message': 'Forbidden. Private Subreddit'}), 403)
 
 
 @app.errorhandler(500)
@@ -122,7 +122,7 @@ def static_page(type):
     print("Listing Type:", type)
     print("Subreddit:", new_subreddit)
     reroute_url = request.url_root + "api/v1.0/r/" + new_subreddit + "/" + type + "/" + "limit=40"
-    data = json.loads(requests.post(reroute_url))
+    data = json.loads(requests.post(reroute_url))[0]
     # data = connect.get_type_post(new_subreddit, type, 40) # Used for Local Testing
     headers = {'Content-Type': 'text/html'}
     return make_response(render_template('sub_view.html', subreddit=new_subreddit, data=data, list_type=type), 200, headers)
@@ -142,14 +142,14 @@ def static_page_cont(subreddit, type):
         print("Listing Type:", type)
         print("Subreddit:", new_subreddit)
         reroute_url = request.url_root + "api/v1.0/r/" + new_subreddit + "/" + type + "/" + "limit=40"
-        data = json.loads(requests.post(reroute_url))
+        data = json.loads(requests.post(reroute_url))[0]
         # data = connect.get_type_post(new_subreddit, type, 40) # Used for Local Testing
         headers = {'Content-Type': 'text/html'}
         return make_response(render_template('sub_view.html', subreddit=new_subreddit, data=data, list_type=type), 200,
                              headers)
     else:
         reroute_url = request.url_root + "api/v1.0/r/" + subreddit + "/" + type + "/" + "limit=40"
-        data = json.loads(requests.post(reroute_url))
+        data = json.loads(requests.post(reroute_url))[0]
         # data = connect.get_type_post(subreddit, type, 40) # Used for Local Testing
         headers = {'Content-Type': 'text/html'}
         return make_response(render_template('sub_view.html', subreddit=subreddit, data=data, list_type=type), 200,
