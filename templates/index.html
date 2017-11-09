@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link rel='shortcut icon' type='image/x-icon' href="{{ url_for('static',filename='img/reddit.png') }}" />
+    <link rel='shortcut icon' type='image/x-icon' href="{{ url_for('static',filename='img/reddit.png') }}"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -14,30 +14,39 @@
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
 
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
     <!-- Bootstrap core CSS -->
     <!--<link href="static/css/bootstrap.min.css" rel="stylesheet">-->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/materialize.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/materialize.css') }}">
     <!-- Material Design Bootstrap -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/mdb.min.css') }}">
     <!--<link href="static/css/mdb.min.css" rel="stylesheet">-->
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.collapsible').collapsible();
+        });
+
+
+    </script>
 
 </head>
 
-<body style="background-color:#1A237E";>
-
-
+<body>
 <header>
     <div class="navbar-fixed">
         <nav>
-              <div style="border-bottom: 10px solid #396DC1;background: #4588F1"
+            <div style="border-bottom: 10px solid #396DC1;background: #4588F1"
                  class="nav-wrapper">
 
                 <form action="{{ url_for('static_page', type="top") }}" method="POST">
                     <div class="input-field">
                         <input name="subreddit_chose" id="search" type="search" required>
-                        <label class="label-icon" for="search"><i style="font-size: 18px;" class="material-icons">Enter
-                            Subreddit</i></label>
+                        <label class="label-icon" for="search"><i style="font-size: 18px;"
+                                                                  class="material-icons">search</i></label>
                         <i class="material-icons">close</i>
                     </div>
                 </form>
@@ -49,28 +58,43 @@
 </header>
 
 <main>
-    <div class="container">
-        <div style="text-align: center;color: white; border-bottom: 20px solid #396DC1; background: #4588F1; margin-top: 20%; align-content: center;"
+    <div style="width:80%;" class="container">
+        <div style="text-align: center;color: black; border-top: 10px solid #4588F1; border-bottom: 10px solid #4588F1; margin-top: 10%; align-content: center;"
              class="z-depth-4">
             <div style="padding: 40px;">
                 <h1>Welcome to RTop</h1>
                 <hr>
-                <p>RTop is a basic subreddit restyler that utilizes data pulled from the RTop API to visualize subreddit content. For more information
+                <p>RTop is a basic subreddit restyler that utilizes data pulled from the RTop API to visualize subreddit
+                    content. For more information
                     go to the GitHub page found below.
                     To start, type in the name of a subreddit above.</p>
             </div>
         </div>
         <br>
-        <br>
 
     </div>
+    <article style="color: black; text-align: center" class="container">
+        <ul style="align-content: center;" class="collapsible popout" data-collapsible="accordion">
+            <li>
+                <div style="border-top: 5px solid #2DA697;" class="collapsible-header">
+                    <i class="material-icons">filter_drama</i>First Step</div>
+                <div style="background: #4588F1" class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+            </li>
+            <li>
+                <div style="border-top: 5px solid #4588F1;" class="collapsible-header"><i class="material-icons">place</i>Second Step</div>
+                <div style="background: #4588F1" class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+            </li>
+            <li>
+                <div style="border-top: 5px solid #4588F1; border-bottom: 5px solid #2DA697;" class="collapsible-header"><i class="material-icons">whatshot</i>Third Step</div>
+                <div style="background: #4588F1" class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+            </li>
+        </ul>
+    </article>
 </main>
 
 <!--Footer-->
-
-
-<footer style="margin-top: 400px; position: relative;" class="page-footer">
-     <div style="text-align:  center" class="container">
+<footer style="margin-top: 200px; position: relative;" class="page-footer">
+    <div style="text-align:  center" class="container">
         <div class="row">
             <div class="col l6 s12">
                 <h5 class="white-text">RTop: Simplified Subreddits in Style</h5>
@@ -98,6 +122,9 @@
 <!--/.Footer-->
 
 <!-- SCRIPTS -->
+<script src="{{ url_for('static',filename='js/jquery-3.1.1.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/materialize.min.css') }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/materialize.js') }}"></script>
 
 <!-- JQuery -->
 
