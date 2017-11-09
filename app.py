@@ -17,7 +17,6 @@ valid_args = {
     "new": True,
 }
 
-
 # ------------------------------------------------------------------------------------------------------
 @app.route('/api/v1.0')
 def welcome():
@@ -120,9 +119,9 @@ def static_page(type):
     new_subreddit = result["subreddit_chose"][0].replace(" ", "")
     print("Listing Type:", type)
     print("Subreddit:", new_subreddit)
-    # reroute_url = "https://rtop.herokuapp.com/" + "api/v1.0/r/" + new_subreddit + "/" + type + "/" + "limit=40"
+    reroute_url = "https://rtop.herokuapp.com/" + "api/v1.0/r/" + new_subreddit + "/" + type + "/" + "limit=40"
     # data = connect.get_type_post(new_subreddit, type, 40) # Used for Local Testing
-    reroute_url = request.url_root + "api/v1.0/r/" + new_subreddit + "/" + type + "/" + "limit=40"
+    # reroute_url = request.url_root + "api/v1.0/r/" + new_subreddit + "/" + type + "/" + "limit=40"
     data = requests.post(reroute_url).json()
     headers = {'Content-Type': 'text/html'}
     return make_response(render_template('sub_view.html', subreddit=new_subreddit, data=data, list_type=type), 200, headers)

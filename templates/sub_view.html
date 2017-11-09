@@ -30,14 +30,13 @@
 
 
 <header>
-    <div class="navbar-fixed">
+    <div class="navbar-fixed center">
         <nav>
             <div style="border-bottom: 10px solid #396DC1;background: #4588F1"
                  class="nav-wrapper">
-                <a style="display: inline-block; padding-left: 20px; padding-bottom: 20px; font-size: 20px;" href="#!"
-                   class="brand-logo">
 
-                    <p style="margin-top: -5px; margin-right: 10px;">RTop/r/{{ subreddit }}</p></a>
+                <a style="font-size: 20px;" href="index.html"
+                   class="brand-logo">RTop/r/{{ subreddit }}</a>
                 <form action="{{ url_for('static_page_cont', subreddit=subreddit, type=list_type) }}" method="POST">
                     <div class="input-field">
                         <label class="label-icon" for="search"><i style="font-size: 18px;"
@@ -45,16 +44,20 @@
                         <input name="subreddit_chose" id="search" type="search" required>
                         <i class="material-icons">close</i>
                     </div>
+
                 </form>
 
-                <ul class="right hide-on-med-and-down">s
+
+
+                <ul class="right hide-on-med-and-down">
                 </ul>
             </div>
         </nav>
     </div>
-    <div style="background-color: #396DC1;" class="nav-extended">
+    <div style="background-color: #396DC1;" class="nav-extended center">
         <div class="nav-content">
             <ul class="tabs tabs-transparent">
+              <li class="tab"><a target="_self" href={{ url_for("inital") }}>Home</a></li>
                 {% if list_type == 'top' %}
                     <li class="tab"><a target="_self" style="background:  #4588F1" class="active"
                                        href={{ "/view/r/" + subreddit + "/top" }}>Top</a></li>
@@ -147,17 +150,15 @@
                 <br>
             {% endfor %}
         {% else %}
-            <div style="margin-bottom: 450px; width:80%;" class="container">
+            <div style="margin-bottom: 480px; width:80%;" class="container">
                 <div style="text-align: center;color: black; border-top: 10px solid #2DA697; border-bottom: 10px solid #2DA697; margin-top: 10%; align-content: center;"
                      class="z-depth-4">
                     <div style="padding: 40px;">
-                        <h3>Private/Empty</h3>
+                        <h4>Private/Empty</h4>
                     </div>
                 </div>
                 <br>
-
             </div>
-
         {% endif %}
     </div>
 </main>
