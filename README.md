@@ -2,6 +2,10 @@
 
 RTop is a basic subreddit restyler that utilizes data pulled from the RTop API to visualize subreddit content.
 
+### How It Works
+
+Using the Reddit API, I developed a 'wrapper' API using Python Flask that pulls information from the Reddit API, simplifies it to only include relevant information, and then returns the neccesary response. Using the data returned from the RTop API, I rendered HTML templates through Python Flask's template functionality and jinja2 to create a basic website to visualize the data returned from the API. Finally, I utilized the Javascript and CSS provided by Materialize to improve the design.
+
 ### Built With
 
 [Werkzeug](http://werkzeug.pocoo.org/): A WSGI utility library for Python.
@@ -44,9 +48,13 @@ def welcome():
 web: gunicorn --pythonpath src_api app:app --log-file=-
 ```
 
-
 ### Using the API (With Requests)
 
+Subreddit Name: All names are valid as long as they exist. If they don't exist you'll receive a Private/Empty subreddit message.
+
+Valid Listing Types: top, rising, new, controversial
+
+Limit: Value must be less than 100 and greater than 0. However, by default the Reddit API will return a minimum of 20 posts (If there exists that many on the subreddit).
 
 GET
 ```
@@ -59,9 +67,18 @@ url = 'https://rtop.herokuapp.com/' + "api/v1.0/r/" + subreddit_name + "/" + lis
 data = requests.post(url)
 ```
 
-## Deployment
+### Deployment
 
 Deployed using [Heroku](www.heroku.com)
+
+### How to Build Locally
+
+In addition to installing the dependencies above, you'll need to uncomment 3 lines of code, and comment out another three lines. In the app.py file, you'll find the lines to comment/uncomment by looking for a comment next to them like such:
+```
+# COMMENT OUT FOR LOCAL TESTING
+# UNCOMMENT FOR LOCAL TESTING
+```
+The reason this is neccesarry is because the program uses the root url to determine the endpoint for get/post requests. When running locally the url is your IP address and therefore won't actually retrieve any data.
 
 ## Authors
 
