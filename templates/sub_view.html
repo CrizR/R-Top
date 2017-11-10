@@ -25,8 +25,7 @@
     <!-- Template styles -->
 </head>
 
-<body style="background-color:white">
-
+<body style="background: white">
 <header>
     <div class="navbar-fixed center">
         <nav>
@@ -91,17 +90,15 @@
                 <div class="row">
                     <div class="col s12 m6">
                         <div style="border-bottom: 10px solid #4588F1; border-top: 10px solid #4588F1;" class="card">
-                            <a href="{{ data["posts"][i - 1]["link"] }}"
+                            <a href="{{ data["posts"][i - 1]["link"] }}" target="_blank"
                                class="btn-floating halfway-fab waves-effect waves-light red"><i
                                     class="material-icons">insert_link</i></a>
                             <div style="height: 120px;" class="card-content">
 
                                 <p>{{ data["posts"][i - 1]["title"].title() }}</p>
-                                <p style="float: left"><i
-                                        class="material-icons">arrow_drop_up</i>{{ data["posts"][i - 1]["upvotes"] }}
+                                <p style="float: left"><i class="material-icons">arrow_drop_up</i>{{ data["posts"][i - 1]["upvotes"] }}
                                 </p>
                                 <p style="float: right;">{{ data["posts"][i - 1]["gilded"] }}</p>
-
                             </div>
                             <div class="card-image">
                                 {% if "gfycat" in data["posts"][i - 1]["link"] or "gif" in data["posts"][i - 1]["link"] %}
@@ -109,7 +106,6 @@
                                             src="{{ data["posts"][i - 1]["link"] }}"></iframe>
                                 {% else %}
                                     <img src="{{ data["posts"][i - 1]["link"] }}">
-
                                 {% endif %}
 
                             </div>
@@ -118,15 +114,14 @@
                     </div>
                     <div class="col s12 m6">
                         <div style="border-top: 10px solid #4588F1; border-bottom: 10px solid #4588F1;" class="card">
-                            <a href="{{ data["posts"][i]["link"] }}"
+                            <a href="{{ data["posts"][i]["link"] }}" target="_blank"
                                class="btn-floating halfway-fab waves-effect waves-light red"><i
                                     class="material-icons">insert_link</i></a>
 
                             <div style="height: 120px;" class="card-content">
 
-                                <p>{{ data["posts"][i]["title"].title() }}</p>
-                                <p style="float: left"><i
-                                        class="material-icons">arrow_drop_up</i>{{ data["posts"][i]["upvotes"] }}</p>
+                                <p>{{ data["posts"][i]["title"] }}</p>
+                                <p style="float: left"><i class="material-icons">arrow_drop_up</i>{{ data["posts"][i]["upvotes"] }}</p>
                                 <p style="float: right;">{{ data["posts"][i]["gilded"] }}</p>
 
                             </div>
