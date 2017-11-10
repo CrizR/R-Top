@@ -51,7 +51,9 @@ web: gunicorn --pythonpath src_api app:app --log-file=-
 ### Using the API (With Requests)
 
 Subreddit Name: All names are valid as long as they exist. If they don't exist you'll receive a Private/Empty subreddit message.
+
 Valid Listing Types: top, rising, new, controversial
+
 Limit: Value must be less than 100 and greater than 0. However, by default the Reddit API will return a minimum of 20 posts (If there exists that many on the subreddit).
 
 GET
