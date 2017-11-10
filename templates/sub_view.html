@@ -16,7 +16,6 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- Bootstrap core CSS -->
     <!--<link href="static/css/bootstrap.min.css" rel="stylesheet">-->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/materialize.min.css') }}">
     <!-- Material Design Bootstrap -->
@@ -26,8 +25,7 @@
     <!-- Template styles -->
 </head>
 
-<body style="background:white ">
-
+<body style="background-color:white">
 
 <header>
     <div class="navbar-fixed center">
@@ -44,10 +42,7 @@
                         <input name="subreddit_chose" id="search" type="search" required>
                         <i class="material-icons">close</i>
                     </div>
-
                 </form>
-
-
 
                 <ul class="right hide-on-med-and-down">
                 </ul>
@@ -57,7 +52,7 @@
     <div style="background-color: #396DC1;" class="nav-extended center">
         <div class="nav-content">
             <ul class="tabs tabs-transparent">
-              <li class="tab"><a target="_self" href={{ url_for("inital") }}>Home</a></li>
+                <li class="tab"><a target="_self" href={{ url_for("inital") }}>Home</a></li>
                 {% if list_type == 'top' %}
                     <li class="tab"><a target="_self" style="background:  #4588F1" class="active"
                                        href={{ "/view/r/" + subreddit + "/top" }}>Top</a></li>
@@ -95,7 +90,7 @@
             {% for i in range (1, data["posts_size"], 2) %}
                 <div class="row">
                     <div class="col s12 m6">
-                        <div style="border-bottom: 10px solid #2DA697; border-top: 10px solid #2DA697;" class="card">
+                        <div style="border-bottom: 10px solid #4588F1; border-top: 10px solid #4588F1;" class="card">
                             <a href="{{ data["posts"][i - 1]["link"] }}"
                                class="btn-floating halfway-fab waves-effect waves-light red"><i
                                     class="material-icons">insert_link</i></a>
@@ -122,7 +117,7 @@
                         </div>
                     </div>
                     <div class="col s12 m6">
-                        <div style="border-top: 10px solid #2DA697; border-bottom: 10px solid #2DA697;" class="card">
+                        <div style="border-top: 10px solid #4588F1; border-bottom: 10px solid #4588F1;" class="card">
                             <a href="{{ data["posts"][i]["link"] }}"
                                class="btn-floating halfway-fab waves-effect waves-light red"><i
                                     class="material-icons">insert_link</i></a>
@@ -151,7 +146,7 @@
             {% endfor %}
         {% else %}
             <div style="margin-bottom: 480px; width:80%;" class="container">
-                <div style="text-align: center;color: black; border-top: 10px solid #2DA697; border-bottom: 10px solid #2DA697; margin-top: 10%; align-content: center;"
+                <div style="text-align: center;color: black; border-top: 10px solid #4588F1; border-bottom: 10px solid #4588F1; margin-top: 10%; align-content: center;"
                      class="z-depth-4">
                     <div style="padding: 40px;">
                         <h4>Private/Empty</h4>
@@ -189,24 +184,8 @@
     </div>
 </footer>
 
-<link type="text/javascript" href="{{ url_for('static',filename='/js/jquery-3.1.1.min.js') }}">
-<!--<script type="text/javascript" src="static/js/jquery-3.1.1.min.js"></script>-->
+<link type="text/javascript" href="{{ url_for('static',filename='/js/jquery-3.2.1.min.js') }}">
 
-<!-- Bootstrap dropdown -->
-<link type="text/javascript" href="{{ url_for('static',filename='/js/popper.min.js') }}">
-<!--<script type="text/javascript" src="static/js/popper.min.js"></script>-->
-
-<!-- Bootstrap core JavaScript -->
-<link type="text/javascript" href="{{ url_for('static',filename='/js/bootstrap.min.js') }}">
-<!--<script type="text/javascript" src="static/js/bootstrap.min.js"></script>-->
-
-<!-- MDB core JavaScript -->
-<link type="text/javascript" href="{{ url_for('static',filename='/js/mdb.min.js') }}">
-<!--<script type="text/javascript" src="static/js/mdb.min.js"></script>-->
-
-<script>
-    new WOW().init();
-</script>
 
 </body>
 </html>
