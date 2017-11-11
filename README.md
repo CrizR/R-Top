@@ -4,7 +4,7 @@ RTop is a basic subreddit restyler that utilizes data pulled from the RTop API t
 
 ### How It Works
 
-Using the Reddit API, I developed a 'wrapper' API using Python Flask that pulls information from the Reddit API, simplifies it to only include relevant information, and then returns the neccesary response. Using the data returned from the RTop API, I rendered HTML templates through Python Flask's template functionality and jinja2 to create a basic website to visualize the data returned from the API. Finally, I utilized the Javascript and CSS provided by Materialize to improve the design.
+Using the Reddit API, I developed a 'wrapper' API using Python Flask that pulls information from the Reddit API, simplifies it to only include relevant information, and then returns the necessary response. Using the data returned from the RTop API, I rendered HTML templates through Python Flask's template functionality and jinja2 to create a basic website to visualize the data returned from the API. Finally, I utilized the Javascript and CSS provided by Materialize to improve the design.
 
 ### Built With
 
