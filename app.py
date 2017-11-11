@@ -143,7 +143,6 @@ def static_page_cont(subreddit, type):
         # reroute_url = "https://rtop.herokuapp.com/" + "api/v1.0/r/" + new_subreddit + "/" + type + "/" + "limit=40" # UNCOMMENT FOR LOCAL TESTING
         reroute_url = request.url_root + "api/v1.0/r/" + new_subreddit + "/" + type + "/" + "limit=40"  #COMMENT OUT FOR LOCAL TESTING
         data = requests.post(reroute_url).json()
-
         headers = {'Content-Type': 'text/html'}
         return make_response(render_template('sub_view.html', subreddit=new_subreddit, data=data, list_type=type), 200,
                              headers)
@@ -151,7 +150,6 @@ def static_page_cont(subreddit, type):
         # reroute_url = "https://rtop.herokuapp.com/" + "api/v1.0/r/" + subreddit + "/" + type + "/" + "limit=40" # UNCOMMENT FOR LOCAL TESTING
         reroute_url = request.url_root + "api/v1.0/r/" + subreddit + "/" + type + "/" + "limit=40" # COMMENT OUT FOR LOCAL TESTING
         data = requests.post(reroute_url).json()
-
         headers = {'Content-Type': 'text/html'}
         return make_response(render_template('sub_view.html', subreddit=subreddit, data=data, list_type=type), 200,
                              headers)
